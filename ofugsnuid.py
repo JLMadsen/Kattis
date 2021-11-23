@@ -1,0 +1,1 @@
+print('\n'.join([*map(lambda x: str(x), reversed([int(input()) for _ in range( int( input() ) ) ]) )]))

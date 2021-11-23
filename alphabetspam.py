@@ -1,0 +1,11 @@
+import re
+word = input()
+og_length = len(word)
+lowercase = re.findall(r'[a-z]', word)
+uppercase = re.findall(r'[A-Z]', word)
+whitespace = re.findall(r'_', word)
+word = re.sub(r'[a-zA-Z_]', '', word)
+print(len(whitespace) / og_length )
+print(len(lowercase)  / og_length )
+print(len(uppercase)  / og_length )
+print(len(word)       / og_length )
