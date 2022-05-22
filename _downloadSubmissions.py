@@ -33,6 +33,12 @@ PAGE_STOP           = False
 
 def parse_page(page_nr) -> bool:
     print('Fetch page', page_nr)
+
+    assert ACCOUNT_NAME != None
+    assert ACCOUNT_NAME != ""
+    assert COOKIE["EduSiteCookie"] != None
+    assert COOKIE["EduSiteCookie"] != ""
+
     page_url = URL + '/users/' + ACCOUNT_NAME + '?page=' + str(page_nr)
     page = requests.get(page_url, cookies=COOKIE)
     submissions = re.findall(ID_REGEX, page.text)
