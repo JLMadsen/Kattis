@@ -1,19 +1,14 @@
+from sys import stdin
 words = {}
-while 1:
-    try:
-        a, b = input().split()
-    except:
-        break
-    words[b] = a
-while 1:
-    word = ''
-    try:
-        word = input()
-    except EOFError:
-        break
-    if not word:
-        break
-    if word not in words:
-        print('eh')
+for line in stdin:
+    line = line.rstrip()
+    arr = line.split(' ')
+    if len(arr) == 2:
+        words[arr[1]] = arr[0]
     else:
-        print(words[word])
+        if not line:
+            continue
+        if line in words.keys():
+            print(words[line])
+        else:
+            print('eh')
