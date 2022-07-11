@@ -24,8 +24,16 @@ languages = { "Python 3": 'py',
               "Java": 'java', 
               "C#": 'cs' }
 
-def parse_submission(sub_id):
-    submission = requests.get(URL + '/submissions/' + sub_id, cookies=COOKIE).text
+formatting = {  '&#039;': '\'', # single quote
+                '&quot;': '\"', # double quote
+                '&lt;':   '<',  # less than
+                '&gt;':   '>',  # greather than
+                '&amp;':  '&',  # ampersand
+                '\r':     '',   # windows crlf
+                '\n\n\n': '\n\n', }
+
+def parse_submission(sub_id) -> None:
+    submission = requests.get(f"{URL}/submissions/{sub_id}", cookies=COOKIE).text
     submission = re.sub('Submission history(.|\n)*<\/table>', '', submission)
 
     if 'status is-status-accepted' not in submission:
@@ -51,16 +59,8 @@ def parse_submission(sub_id):
         
         with open(filename, 'w') as f:
 
-            code = (code
-                [len('<div class="source-highlight" data-language="'+ lang +'">'):]
-                [:-len('</div')]
-                .replace('&#039;', '\'') # fix html encoding
-                .replace('&quot;', '\"')
-                .replace('&lt;', '<') # less than
-                .replace('&gt;', '>') # greather than
-                .replace('&amp;', '&') # ampersand
-                .replace('\r', '') # fix windows crlf
-                .replace('\n\n', '\n'))
+            code = (code[47+len(lang):][:-5])
+            [code := code.replace(raw, rep) for raw, rep in formatting.items()]
 
             f.write(code)
 
@@ -69,25 +69,21 @@ def parse_submission(sub_id):
         return
 
 def parse_page(page_nr) -> bool:
+    if page_nr > 20: return False
     with lock_print:
         print('Fetch page', page_nr)
-    page_url = URL + '/users/' + ACCOUNT_NAME + '?page=' + str(page_nr)
+
+    page_url = f"{URL}/users/{ACCOUNT_NAME}?page={page_nr}"
     page = requests.get(page_url, cookies=COOKIE)
     submissions = set(re.findall(ID_REGEX, page.text))
-    
+
     if not submissions:
         return False
 
-    # submissions = [sub for sub in submissions if sub not in FETCHED]
     threads = [threading.Thread(target=parse_submission, args=(sub_id,)) for sub_id in submissions]
     [t.start() for t in threads]
     [t.join() for t in threads]
 
-    # with lock_print:
-    #     print(threads)
-    # for id in submissions:
-    #     if id in FETCHED:
-    #         continue
     return True
 
 def main():

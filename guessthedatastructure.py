@@ -7,6 +7,7 @@ def isStack(pairs):
         elif(stack.pop() != pair[1]):
                 return False
     return True
+
 # first in, first out
 def isQueue(pairs):
     queue = []
@@ -31,11 +32,13 @@ def isPQueue(pairs):
             if(pqueue.pop(ind) != pair[1]):
                 return False
     return True
+
 while 1:
     try:
         n = int(input())
     except:
         exit()
+
     pairs = []
     for i in range(n):
         a, b = input().split(' ')
@@ -48,19 +51,25 @@ while 1:
     except:
         print("impossible")
         continue
+
     boolSum = s+q+p 
+
     if boolSum < 1 :
         print("impossible")
         continue
+
     if boolSum > 1 :
         print("not sure")
         continue
+
     if s :
         print("stack")
         continue
+
     if q :
         print("queue")
         continue
+
     if p :
         print("priority queue")
         continue

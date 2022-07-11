@@ -18,6 +18,7 @@ class main{
                 h--;
             }
             m = m + 60 - 45;
+
         } else {
             m -= 45;
         }

@@ -1,5 +1,7 @@
 n = int(input())
+
 in_da_house = []
+
 for i in range(n):
     action, name = input().split(" ")
     

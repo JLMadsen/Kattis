@@ -1,5 +1,6 @@
 from collections import Counter
 score = {}
+
 for j in range(5):
     score[(j+1)] = 0
     points = input().split(" ")

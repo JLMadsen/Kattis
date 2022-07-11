@@ -1,5 +1,6 @@
 n, m = input().split(" ")
 n, m = int(n), int (m)
+
 out = 0
 denied = 0
 for i in range(m):
@@ -12,4 +13,5 @@ for i in range(m):
             out += amount
     else:
         out -= amount
+
 print(denied)

@@ -15,6 +15,7 @@ def multiplicative_inverse(a, b):
     if ly < 0:
         ly += oa  # If neg wrap modulo orignal a
     return lx
+
 def primefinder():
     result = []
     number = 2
@@ -28,6 +29,7 @@ def primefinder():
             primesfound += 1
         number += 1
     return result
+
 def factorfinder(primes, n):
     factors = []
     for p in primes:

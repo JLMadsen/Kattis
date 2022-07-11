@@ -1,5 +1,6 @@
 rooms, b = input().split(" ")
 rooms, b = int(rooms), int(b)
+
 if rooms == b:
     print("too late")
 else:

@@ -1,4 +1,5 @@
 string = input()
+
 def check_smile(pos):
     if string[pos+1] == ")":
         return True

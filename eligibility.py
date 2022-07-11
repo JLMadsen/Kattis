@@ -1,6 +1,7 @@
 # 2010 or later
 # born in 1991 or later
 # 41 courses
+
 for n in range(int(input())):
     name, school, born, courses = input().split(" ")
     school_start = int(school.split("/")[0])
