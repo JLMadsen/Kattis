@@ -14,7 +14,7 @@ ID_REGEX            = r'[0-9]{7}'
 FETCHED             = set()
 PROBLEM_REGEX       = r'/problems/[a-z]+'
 PAGE_STOP           = False
-CODE_REGEX          = r'<div class="source-highlight" data-language="{}">[^<]*</div'
+CODE_REGEX          = r'data-language="{}">[^<]*</div'
 
 lock_print = threading.Lock()
 lock_list = threading.Lock()
@@ -24,13 +24,13 @@ languages = { "Python 3": 'py',
               "Java": 'java', 
               "C#": 'cs' }
 
-formatting = {  '&#039;': '\'', # single quote
-                '&quot;': '\"', # double quote
-                '&lt;':   '<',  # less than
-                '&gt;':   '>',  # greather than
-                '&amp;':  '&',  # ampersand
-                '\r':     '',   # windows crlf
-                '\n\n\n': '\n\n', }
+formatting = { '&#039;': '\'', # single quote
+               '&quot;': '\"', # double quote
+               '&lt;':   '<',  # less than
+               '&gt;':   '>',  # greather than
+               '&amp;':  '&',  # ampersand
+               '\r':     '',   # windows crlf
+               '\n\n\n': '\n\n', }
 
 def parse_submission(sub_id) -> None:
     submission = requests.get(f"{URL}/submissions/{sub_id}", cookies=COOKIE).text
@@ -51,7 +51,7 @@ def parse_submission(sub_id) -> None:
             continue
 
         filename = f"{name}.{ext}"
-        
+
         if filename in FETCHED:
             return
         with lock_list:
@@ -59,7 +59,7 @@ def parse_submission(sub_id) -> None:
         
         with open(filename, 'w') as f:
 
-            code = (code[47+len(lang):][:-5])
+            code = (code[17+len(lang):][:-5])
             [code := code.replace(raw, rep) for raw, rep in formatting.items()]
 
             f.write(code)
