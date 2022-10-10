@@ -6,9 +6,9 @@ using namespace std;
 
 map<int, priority_queue<int>> quests;
 
-int session(int _energy)
+long session(int _energy)
 {
-    int gold = 0;
+    long gold = 0;
     int energy = _energy;
 
     while (true)
@@ -56,7 +56,7 @@ int main()
             int energy;
             cin >> energy;
 
-            int gold = session(energy);
+            long gold = session(energy);
             cout << gold << endl;
         }
     }
