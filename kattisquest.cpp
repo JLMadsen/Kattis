@@ -11,22 +11,22 @@ int session(int _energy)
     int gold = 0;
     int energy = _energy;
 
-    for (int j=_energy; j>0; --j)
+    while (true)
     {
-        if ( quests.find(j) != quests.end() )
-        {
-            int reward = quests.at(j).top();
-                         quests.at(j).pop();
+        auto it = quests.upper_bound(energy);
+        if (it == quests.begin()) 
+            return gold;
 
-            if (quests.at(j).empty())
-                quests.erase(j);
+        --it;
 
-            energy -= j;
-            j = energy + 1;
-            gold += reward;
-        }
+        gold += it->second.top();
+                it->second.pop();
+
+        energy -= it->first;
+
+        if (it->second.empty())
+            quests.erase(it->first);
     }
-    return gold;
 }
 
 int main()
