@@ -47,9 +47,9 @@ int main()
             if (!quests.count(energy))
             {
                 priority_queue<int> pq;
-                quests.insert(pair<int, priority_queue<int>>(energy, pq ));
+                quests[energy] = pq;
             }
-            quests.at(energy).push( gold );
+            quests[energy].push( gold );
         }
         else
         {
