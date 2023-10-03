@@ -1,5 +1,4 @@
-mouth = [[36,36],[36,36]]
-for (a, b, _, c) in [input() for _ in range(int(input()))]:
-    a, b = (b, a) if (left := a not in '+-') else (a, b)
-    mouth[(a == '+')*1][left] -= int(b) if c == 'm' else 99
-print(0 if mouth[0][0] > 0 and mouth[1][0] > 0 else (1 if mouth[0][1] > 0 and mouth[1][1] > 0 else 2))
+import sys
+m,d=[[8,8],[8,8]],sys.stdin;next(d)
+for(a,b,_,c,_)in d:a,b=[a,b][::1-2*(l:=a not in'+-')];m[a=='+'][l]-=1*c=='m'or 9
+[a,b],[c,d]=m;print([a>0<c,d>0<b,1].index(1))
